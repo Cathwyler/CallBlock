@@ -5,11 +5,14 @@
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -29,6 +32,22 @@
                 <action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
+
+        <receiver
+            android:name=".AutoStartReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".PhoneCallService"
+            android:foregroundServiceType="phoneCall"
+            android:enabled="true"
+            android:exported="true">
+        </service>
 
         <activity
             android:name=".MainActivity"

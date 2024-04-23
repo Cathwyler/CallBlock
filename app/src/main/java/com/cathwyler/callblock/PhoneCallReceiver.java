@@ -25,7 +25,6 @@ import java.lang.reflect.Method;
 
 public class PhoneCallReceiver extends BroadcastReceiver {
     private static final String TAG = "PhoneCallReceiver";
-
     @Override
     public void onReceive(Context context, Intent intent) {
         String strAction = intent.getAction();
@@ -39,17 +38,17 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                     try {
                         if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.P)) {
                             if (context.checkSelfPermission(Manifest.permission.ANSWER_PHONE_CALLS) != PackageManager.PERMISSION_GRANTED) {
-                                appendLog(strState + "incoming call : " + strPhoneNumber);
+                                Logger.appendLog(strState + "incoming call : " + strPhoneNumber);
                                 Log.d(TAG, strState + "incoming call : " + strPhoneNumber);
                             } else {
                                 TelecomManager tm = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
                                 tm.endCall();
-                                appendLog(strState + "blocked call : " + strPhoneNumber);
+                                Logger.appendLog(strState + "blocked call : " + strPhoneNumber);
                                 Log.d(TAG, strState + "blocked call : " + strPhoneNumber);
                             }
                         } else {
                             if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) && context.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                                appendLog(strState + "incoming call : " + strPhoneNumber);
+                                Logger.appendLog(strState + "incoming call : " + strPhoneNumber);
                                 Log.d(TAG, strState + "incoming call : " + strPhoneNumber);
                             } else {
                                 TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -62,39 +61,26 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                                 Method mEndCall = cITelephony.getDeclaredMethod("endCall");
                                 mEndCall.setAccessible(true);
                                 mEndCall.invoke(oITelephony);
-                                appendLog(strState + "blocked call : " + strPhoneNumber);
+                                Logger.appendLog(strState + "blocked call : " + strPhoneNumber);
                                 Log.d(TAG, strState + "blocked call : " + strPhoneNumber);
                             }
                         }
                     } catch (Exception e) {
-                        appendLog(e.toString());
+                        Logger.appendLog(e.toString());
                         e.printStackTrace();
                     }
                 } else {
-                    appendLog(strState + "incoming call : " + strPhoneNumber);
+                    Logger.appendLog(strState + "incoming call : " + strPhoneNumber);
                     Log.d(TAG, strState + "incoming call : " + strPhoneNumber);
                 }
             } else if (EXTRA_STATE_OFFHOOK.equals(strState)) {
+                Logger.appendLog(strState);
                 Log.d(TAG, strState);
             } else if (EXTRA_STATE_IDLE.equals(strState)) {
+                Logger.appendLog(strState);
                 Log.d(TAG, strState);
             }
-        }
-    }
-
-    public void appendLog(String text) {
-        java.io.File logFile = new java.io.File("sdcard/log.txt");
-        try {
-            if (!logFile.exists()) {
-                logFile.createNewFile();
-            }
-            //BufferedWriter for performance, true to set append to file flag
-            java.io.BufferedWriter buf = new java.io.BufferedWriter(new java.io.FileWriter(logFile, true));
-            buf.append(text);
-            buf.newLine();
-            buf.close();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
         }
     }
 }
+
