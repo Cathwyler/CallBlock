@@ -45,7 +45,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                     InputStream isConfig = new FileInputStream(fConfig);
                     pConfig.load(isConfig);
                     isConfig.close();
-                    String strRegex = pConfig.getProperty("Regex", "((((\\+)|(00))33( |))|0)((1( |-|.|)62)|(1( |-|.|)63)|(2( |-|.|)70)|(2( |-|.|)71)|(3( |-|.|)77)|(3( |-|.|)78)|(4( |-|.|)24)|(4( |-|.|)25)|(5( |-|.|)68)|(5( |-|.|)69)|(9( |-|.|)48)|(9( |-|.|)49)).*");
+                    String strRegex = pConfig.getProperty("Regex", CallBlock.REGEX_DEFAULT);
 
                     if (Pattern.matches(strRegex, strPhoneNumber)) {
                         if (!(Build.VERSION.SDK_INT < Build.VERSION_CODES.P)) {
