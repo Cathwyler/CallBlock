@@ -13,12 +13,12 @@ public class PhoneCallService extends Service {
     private static final String TAG = "PhoneCallService";
     @Override
     public void onCreate() {
-        Logger.appendLog("Service create");
+        Logger.appendLog(this, "Service create");
         Log.d(TAG, "Service create");
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.appendLog("Service start");
+        Logger.appendLog(this, "Service start");
         Log.d(TAG, "Service start");
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             this.startForeground(100, new Notification.Builder(this).build());
@@ -29,13 +29,13 @@ public class PhoneCallService extends Service {
     }
     @Override
     public IBinder onBind(Intent intent) {
-        Logger.appendLog("Service bind");
+        Logger.appendLog(this,"Service bind");
         Log.d(TAG, "Service bind");
         return null;
     }
     @Override
     public void onDestroy() {
-        Logger.appendLog("Service destroy");
+        Logger.appendLog(this,"Service destroy");
         Log.d(TAG, "Service destroy");
     }
 

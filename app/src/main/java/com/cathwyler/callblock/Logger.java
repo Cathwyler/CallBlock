@@ -1,18 +1,27 @@
 package com.cathwyler.callblock;
 
+import android.content.Context;
+
+import android.os.Environment;
+
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Logger {
-    public static void appendLog(String str) {
-        java.io.File logFile = new java.io.File("sdcard/log.txt");
+   public static void appendLog(Context context, String str) {
         try {
-            if (!logFile.exists()) {
-                logFile.createNewFile();
+            File fLog = new File(context.getExternalCacheDir(), "log.txt");
+            if (!fLog.exists()) {
+                fLog.createNewFile();
             }
             //BufferedWriter for performance, true to set append to file flag
-            java.io.BufferedWriter buf = new java.io.BufferedWriter(new java.io.FileWriter(logFile, true));
+            BufferedWriter buf = new BufferedWriter(new FileWriter(fLog, true));
             buf.append(str);
             buf.newLine();
             buf.close();
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
