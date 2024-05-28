@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 
 public class Logger {
    public static void appendLog(Context context, String str) {
@@ -16,9 +17,8 @@ public class Logger {
             if (!fLog.exists()) {
                 fLog.createNewFile();
             }
-            //BufferedWriter for performance, true to set append to file flag
             BufferedWriter buf = new BufferedWriter(new FileWriter(fLog, true));
-            buf.append(str);
+            buf.append((new Date()) + ", " + str);
             buf.newLine();
             buf.close();
         } catch (IOException e) {

@@ -10,7 +10,7 @@ android {
         applicationId = "com.cathwyler.callblock"
         minSdk = 21
         targetSdk = 34
-        versionName = "1.0.3"
+        versionName = "1.0.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

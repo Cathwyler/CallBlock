@@ -2,12 +2,15 @@ package com.cathwyler.callblock;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
 import android.os.Build;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.telecom.TelecomManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -62,7 +65,7 @@ public class CallBlock extends Activity {
                 }, REQUEST_PERMISSION_PHONE_CODE);
             }
         } catch (Exception e) {
-            Logger.appendLog(this, e.toString());
+            Logger.appendLog(this, Log.getStackTraceString(e));
             e.printStackTrace();
         }
     }
@@ -81,7 +84,7 @@ public class CallBlock extends Activity {
                     this.finish();
             }
         } catch (Exception e) {
-            Logger.appendLog(this, e.toString());
+            Logger.appendLog(this, Log.getStackTraceString(e));
             e.printStackTrace();
         }
     }
