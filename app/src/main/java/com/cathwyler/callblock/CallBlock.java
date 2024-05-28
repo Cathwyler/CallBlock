@@ -19,18 +19,18 @@ import java.util.Properties;
 
 public class CallBlock extends Activity {
     private static final int REQUEST_PERMISSION_PHONE_CODE = 0;
-    public static final String REGEX_DEFAULT = "((((\\+)|(00))33( |))|0)((1( |-|.|)62)|(1( |-|.|)63)|(2( |-|.|)70)|(2( |-|.|)71)|(3( |-|.|)77)|(3( |-|.|)78)|(4( |-|.|)24)|(4( |-|.|)25)|(5( |-|.|)68)|(5( |-|.|)69)|(9( |-|.|)48)|(9( |-|.|)49)).*";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             File fConfig = new File(this.getExternalFilesDir(null), "config.properties");
-            Properties pConfig = new Properties();
-            pConfig.setProperty("Regex", REGEX_DEFAULT);
-            OutputStream osConfig = new FileOutputStream(fConfig);
-            pConfig.store(osConfig, "CallBlock config file");
-            osConfig.close();
+            if (!fConfig.exists()) {
+                Properties pConfig = new Properties();
+                pConfig.setProperty("Regex", PhoneCallReceiver.REGEX_DEFAULT);
+                OutputStream osConfig = new FileOutputStream(fConfig);
+                pConfig.store(osConfig, "CallBlock config file");
+                osConfig.close();
+            }
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 this.startService(new Intent(this, PhoneCallService.class));
