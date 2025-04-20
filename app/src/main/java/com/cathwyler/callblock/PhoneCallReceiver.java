@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
 import java.lang.Math;
 
 public class PhoneCallReceiver extends BroadcastReceiver {
-    public static final String REGEX_DEFAULT = "((((\\+)|(00))33( |))|0)((1( |-|.|)62)|(1( |-|.|)63)|(2( |-|.|)70)|(2( |-|.|)71)|(3( |-|.|)77)|(3( |-|.|)78)|(4( |-|.|)24)|(4( |-|.|)25)|(5( |-|.|)68)|(5( |-|.|)69)|(9( |-|.|)48)|(9( |-|.|)49)).*";
+    public static final String REGEX_DEFAULT = "^(((((\\+)|(00))33( |))|0)((1( |-|.|)62)|(1( |-|.|)63)|(2( |-|.|)70)|(2( |-|.|)71)|(3( |-|.|)77)|(3( |-|.|)78)|(4( |-|.|)24)|(4( |-|.|)25)|(5( |-|.|)68)|(5( |-|.|)69)|(9( |-|.|)48)|(9( |-|.|)49))|((((\\+)|(00))[^3][^3]( |))|[^+0])).*";
 
     private static final String TAG = "PhoneCallReceiver";
     @Override
